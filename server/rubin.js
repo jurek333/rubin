@@ -8,7 +8,7 @@ let koa = require("koa"),
 var app = koa();
 
 console.log("dir: %s", __dirname);
-app.use(serve(__dirname + '/../public'));
+app.use(serve(__dirname + '/../app'));
 
 var db = require("./db.js")();
 
@@ -45,7 +45,7 @@ setupIo(io);
 server.listen(PORT);
 console.log("Application listens on port %d.", PORT);
 console.log("Use Ctrl-C to close it.");
-            
+
 function rethinkdbChangesHandler(err, cursor) {
     if(err) throw err;
     cursor.each(function(err, row){
@@ -60,8 +60,8 @@ function setupIo(io) {
         socket.on("add_monitor", function(data) {
             console.log("   [i] add new monitor %s %s", data.app, data.aspectId);
             db.subscribeOnAspectChanges(
-                    data.app, 
-                    data.aspectId, 
+                    data.app,
+                    data.aspectId,
                     passDBPullBySocket);
 
             function passDBPullBySocket(err, cursor) {
@@ -77,8 +77,8 @@ function setupIo(io) {
 
                 function unsubscribeAspectChanges() {
                     console.log("  [i] close conection");
-                    if(cursor) { 
-                        cursor.close(); 
+                    if(cursor) {
+                        cursor.close();
                     }
                     socket.removeListener('del_monitor', unsubscribeAspectChanges);
                     socket.removeListener('disconnect', unsubscribeAspectChanges);
