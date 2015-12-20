@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO monitor</title>
+  </head>
+  <body>
+      <h1>Rubin Monitor</h1>
+    <ul id="times"></ul>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.emit('add_monitor', {
+            "app": "localhost",
+            "aspectId": "f9e2a83a-c1ee-481d-b59f-0f9ad004e2d6"
+        });
+        socket.on('refresh_monitor_data', function(msg) {
+            $('#times').append($('<li>').text(JSON.stringify(msg.new_val.Times)));
+        });
+    </script>
+  </body>
+</html>
