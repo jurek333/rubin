@@ -1,2 +1,9 @@
 <div>Monitor Page</div>
-<div>{{data}}</div>
+<div>Messages:</div>
+<ul id="socketMessages">
+    <li ng-repeat="msg in messages">{{msg.text}}</li>
+</ul>
+<div>Timmings:</div>
+<ul>
+    <li ng-repeat="time in data">{{time.Duration}} at {{time.Time}}</li>
+</ul>

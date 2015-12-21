@@ -22,8 +22,8 @@ gulp.task("icons", function() {
 gulp.task("css", function() {
     return gulp.src(config.sassPath + "/style.scss")
         .pipe(sass({
-            style: "compressed",
-            loadPath: [
+            outputStyle: "compressed",
+            includePaths: [
                 config.sassPath,
                 config.bowerDir + "/bootstrap-sass/assets/stylesheets",
                 config.bowerDir + "/font-awesome/scss"
@@ -31,7 +31,7 @@ gulp.task("css", function() {
         }).on("error", notify.onError(function(error){
             return "Error: "+error.message;
         })))
-        .pipe(gulp.dest(config.publicDir + "/css"));
+        .pipe(gulp.dest("./app/css"));
 });
 
 gulp.task("watch", function(){
