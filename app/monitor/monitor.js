@@ -23,6 +23,9 @@ angular.module("RubinApp").controller("MonitorController", [
             $scope.data = msg.new_val.Times;
             $scope.name = msg.new_val.Name;
         });
+        $scope.$on("$destroy", function (event) {
+            socket.removeAllListeners();
+        });
         socket.emit("add_monitor", {
             "app": app,
             "aspectId": aspectId                
